@@ -1,0 +1,18 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Djangonauts</title>
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <header class="wrapper">
+            <h1><a href=""><img src="" alt="djangonautic" /></a></h1>
+        </header>
+        <div class="wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
