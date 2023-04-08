@@ -22,4 +22,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('tracker/', include('tracker.urls')),
     path('authuser/', include('authuser.urls')),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]

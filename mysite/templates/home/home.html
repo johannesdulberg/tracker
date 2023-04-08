@@ -1,21 +1,6 @@
+{% extends "../base.html" %}
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Djangonauts</title>
-        <link rel="stylesheet" href="../../static/styles.css">
-    </head>
-
-    <!-- Navigation-->
-{% load static %}
-
-<style>
-  .active{
-    font-weight: 500;
-  }
-</style>
-<h1 class="p-15">HELLO</h1>
-
+{% block content %}
 <nav class='w-screen h-[80px] z-20 fixed drop-shadow-lg top-0 fadeIn {% if self.transparent %} text-white {% else %} text-black bg-white {% endif %}' {% if self.transparent %} id="myScrollspy" {% endif %}>
     <div class='px-2 flex w-full h-full justify-between'>
       <div class='flex items-center'>
@@ -74,4 +59,4 @@
     <body>
         <p>HOME</p>
     </body>
-</html>
+    {% endblock %}
