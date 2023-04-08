@@ -1,0 +1,24 @@
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Djangonauts</title>
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <header class="wrapper">
+            
+            <nav>
+                <ul>
+                    <li>
+                        <form class="site-form" action="/tracker/createTraining/" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form }}
+                            <input type="submit" value="Create">
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </body>
+</html>

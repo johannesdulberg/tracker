@@ -3,8 +3,74 @@
     <head>
         <meta charset="utf-8">
         <title>Djangonauts</title>
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="../../static/styles.css">
     </head>
+
+    <!-- Navigation-->
+{% load static %}
+
+<style>
+  .active{
+    font-weight: 500;
+  }
+</style>
+<h1 class="p-15">HELLO</h1>
+
+<nav class='w-screen h-[80px] z-20 fixed drop-shadow-lg top-0 fadeIn {% if self.transparent %} text-white {% else %} text-black bg-white {% endif %}' {% if self.transparent %} id="myScrollspy" {% endif %}>
+    <div class='px-2 flex w-full h-full justify-between'>
+      <div class='flex items-center'>
+            <button class='text-3xl font-bold mr-4 sm:text-4xl'  {% if self.button_page %} href="{{self.button_page.url}}" {% elif self.button_url %} href="{{self.button_url}} {% endif %}">{{self.title}}</button>
+      </div>
+      <div class='flex items-center'>
+      <ul class='hidden md:flex items-center'>
+        {% for item in self.item %}
+                    <li ><a class=" {{item.class}} p-4" {% if item.button_page %} href="{{ item.button_page.url }}" {% elif item.button_url %} href="{{ item.button_url }}" {% endif %} >{{item.title}}</a></li>
+        {% endfor %}
+      </ul>
+        <div class='hidden md:flex pr-4'>
+        <a class='px-8 ml-4 py-3 solidButton' href="/kontakt">Kontakt</a>
+        </div>
+        <!-- <div class='md:hidden mr-4' onClick={handleClick}>
+          {!nav ? <Bars3Icon class='w-9' /> : <XMarkIcon class='w-9' />}
+        </div> -->
+        <button class="md:hidden mr-4" onclick="dropDown()"> 
+          <svg viewBox="0 0 12 12" enable-background="new 0 0 12 12" id="Слой_1" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <g> <rect fill="#1D1D1B" height="1" width="11" x="0.5" y="5.5"></rect> <rect fill="#1D1D1B" height="1" width="11" x="0.5" y="2.5"></rect> <rect fill="#1D1D1B" height="1" width="11" x="0.5" y="8.5"></rect> </g> </g></svg>
+          
+        </button>
+      </div>
+      
+      
+    </div>
+
+    
+    <!-- <Scrollspy className={!nav ? 'hidden' : 'absolute bg-white w-full px-8'} items={ ['home', 'services', 'projects',"about"] } currentClassName="is-current"></Scrollspy> -->
+    <ul class="absolute hidden bg-white text-black w-full px-8 text-center" id="dropdownMenu">
+        {% for item in self.item %}
+             
+                    <!-- {% if item.button_page %}
+        
+                        <li ><a class="active hover-underline-animation" href="{{ item.button_page.url }}" >{{item.title}}</a></li>
+                    {% elif item.button_url %}
+                        <li ><a class="active hover-underline-animation" href="{{ item.button_url }}" >{{item.title}}</a></li>
+                    {% endif %} -->
+                    <li class="p-4"><a class="active hover-underline-animation" {% if item.button_page %} href="{{ item.button_page.url }}" {% elif item.button_url %} href="{{ item.button_url }}" {% endif %} >{{item.title}}</a></li>
+
+                        
+        {% endfor %}
+    
+
+      <div class='flex flex-col my-4'>
+          <a class='px-8 py-3 solidButton' href="/#contact">Kontakt</a>
+      </div>
+    </ul> 
+    
+</nav>
+{% if self.transparent %} 
+{% else %} 
+<div class="mb-[120px]"></div>
+{% endif %}
+
+
     <body>
         <p>HOME</p>
     </body>
