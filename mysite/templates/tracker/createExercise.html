@@ -1,0 +1,20 @@
+{% extends "../base.html" %}
+{% block content %}
+
+
+
+<header class="wrapper mt-[120px]">
+    
+    <nav>
+        <ul>
+            <li>
+                <form class="site-form" action="/tracker/createExercise/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Create">
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>
+{% endblock %}

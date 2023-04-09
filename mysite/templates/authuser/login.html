@@ -1,0 +1,22 @@
+{% extends "../base.html" %}
+{% block content %}
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <h1 class="mt-[120px] text-4xl primary-text">Log in</h1>
+    <form
+      class="site-form w-full max-w-md mt-8"
+      action="/authuser/login/"
+      method="post"
+    >
+      {% csrf_token %}
+      {{ form }}
+      <input
+        type="submit"
+        value="Login"
+        class="mt-4 px-4 py-2 button-primary"
+      />
+    </form>
+    <p class="mt-4">
+      Not got an account? <a href="{% url 'authuser:signup' %}">Sign Up</a>
+    </p>
+  </div>
+{% endblock %}

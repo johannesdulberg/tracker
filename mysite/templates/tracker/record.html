@@ -1,0 +1,25 @@
+{% extends "../base.html" %}
+
+{% block content %}
+
+<div class="container mx-auto mt-[120px]">
+    <h1 class="text-4xl font-bold mb-8">RECORD</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {% for key,value in trainingDict.items %}
+            <div class="bg-white shadow-md rounded p-6">
+                <h2 class="text-xl font-semibold mb-4">{{ key.Date }}</h2>
+                <div class="divide-y divide-gray-300">
+                    {% for set in value %}
+                        <div class="py-2">
+                            <p class="font-semibold">{{ set.Excercise }}</p>
+                            <p>Weight: {{ set.Weight }}</p>
+                            <p>Reps: {{ set.Reps }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

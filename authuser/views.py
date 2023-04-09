@@ -5,6 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login, logout
 
+from django.contrib.auth.decorators import login_required
+
 
 def signup_view(request):
     print("YOUR METHOD", request.method)
@@ -34,6 +36,7 @@ def login_view(request):
     return render(request, 'authuser/login.html', {'form': form})
 
 
+@login_required
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
