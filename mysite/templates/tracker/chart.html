@@ -1,0 +1,160 @@
+{% extends "../base.html" %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="p-4">
+    
+
+    <div class="mt-[120px]">
+        <label for="exercise-select">Choose an exercise:</label>
+        <select name="exercise" id="exercise-select" onchange="updateChart()">
+            <option value="">--All exercises--</option>
+            {% for exercise in exercises %}
+                <option value="{{ exercise.id }}" {% if selected_exercise == exercise %}selected{% endif %}>{{ exercise.Excercise }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+
+    {% if selected_exercise %}
+  <!-- Add the chart canvas elements here -->
+    <h2 class="mt-4">Training Volume</h2>
+    <canvas id="Volume"></canvas>
+    <h2 class="mt-4">Max Weight</h2>
+    <canvas id="MaxSet"></canvas>
+    <h2 class="mt-4">Projected One-Rep-Max</h2>
+    <canvas id="OneRep"></canvas>
+  <!-- Add the chart rendering JavaScript here -->
+{% else %}
+  <div class="text-center mt-8">
+    <h2 class="text-2xl">Please select an exercise</h2>
+  </div>
+{% endif %}
+</div>
+    <script>
+
+        const volumeLabels = JSON.parse('{{ volumeLable|safe }}');
+        const volumeData = JSON.parse('{{ volumeData|safe }}');
+        const ctxVolume = document.getElementById('Volume').getContext('2d');
+        const Volume = new Chart(ctxVolume, {
+            type: 'line',
+            data: {
+                labels: volumeLabels,
+                datasets: [{
+                    label: 'Reps * Weight',
+                    data: volumeData,
+                    borderColor: '#6C63FF',
+                    backgroundColor: 'rgba(108,99,255, 0.2)',
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Reps * Weight'
+                        }
+                    }
+                }
+            }
+        });
+
+        const maxSetLabels = JSON.parse('{{ maxSetLable|safe }}');
+        const maxSetData = JSON.parse('{{ maxSetData|safe }}');
+        const ctxMaxSet = document.getElementById('MaxSet').getContext('2d');
+        const MaxSet = new Chart(ctxMaxSet, {
+            type: 'line',
+            data: {
+                labels: maxSetLabels,
+                datasets: [{
+                    label: 'Max Weight',
+                    data: maxSetData,
+                    borderColor: 'rgba(108,99,255, 1)',
+                    backgroundColor: 'rgba(108,99,255, 0.2)',
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Max Weight'
+                        }
+                    }
+                }
+            }
+        });
+
+        const oneRepLabels = JSON.parse('{{ oneRepMaxLable|safe }}');
+        const oneRepData = JSON.parse('{{ oneRepMaxData|safe }}');
+        const ctxOneRep = document.getElementById('OneRep').getContext('2d');
+        const OneRep = new Chart(ctxOneRep, {
+            type: 'line',
+            data: {
+                labels: oneRepLabels,
+                datasets: [{
+                    label: 'Projected One-Rep-Max',
+                    data: oneRepData,
+                    borderColor: 'rgba(108,99,255, 1)',
+                    backgroundColor: 'rgba(108,99,255, 0.2)',
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Projected One-Rep-Max'
+                        }
+                    }
+                }
+            }
+        });
+
+
+        
+
+        function updateChart() {
+            const exerciseId = document.getElementById('exercise-select').value;
+            window.location.search = `exercise_id=${exerciseId}`;
+        }
+    </script>
+{% else %}
+<div class="flex flex-col items-center mt-[120px]">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Get Started</h2>
+    <a href="/authuser/signup" class="mb-4 px-6 py-3 bg-blue-600 text-white rounded font-semibold">Sign Up</a>
+    <a href="/authuser/login" class="px-6 py-3 bg-gray-300 text-gray-800 rounded font-semibold">Log In</a>
+</div>
+{% endif %}
+{% endblock %}

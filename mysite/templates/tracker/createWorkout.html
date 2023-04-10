@@ -1,17 +1,26 @@
 {% extends "../base.html" %}
-
-
+{% load crispy_forms_tags %}
+{% load tailwind_filters %}
 {% block content %}
 {% if user.is_authenticated %}
 <div class="container mx-auto mt-[120px]">
-    <h2 class="text-4xl font-bold mb-8 text-white" style="color: #23B5D3;">Create Workout</h2>
+    <h2 class="text-4xl font-bold mb-8" style="color: #6C63FF;">Create Workout</h2>
 
+    <div class="bg-white p-6 rounded shadow-md mt-8">
+        <h3 class="text-2xl font-semibold mb-4" style="color: #071013;">Create Training</h3>
+        <form method="POST" class="space-y-4" action="/tracker/createWorkout/" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ training_form|crispy }}
+            <button type="submit" name="training_submit" class="bg-[#6C63FF] text-white font-semibold py-2  mt-4 px-4 rounded hover:bg-opacity-90">Create Training</button>
+        </form>
+    </div>
+    
     <div class="bg-white p-6 rounded shadow-md">
         <h3 class="text-2xl font-semibold mb-4" style="color: #071013;">Create Exercise</h3>
         <form method="POST" class="space-y-4" action="/tracker/createWorkout/" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ exercise_form }}
-            <button type="submit" name="exercise_submit" class="bg-23B5D3 text-white font-semibold py-2 px-4 rounded hover:bg-opacity-90" style="background-color: #23B5D3;">Create Exercise</button>
+            {{ exercise_form|crispy }}
+            <button type="submit" name="exercise_submit" class="bg-[#6C63FF] text-white font-semibold py-2 px-4 rounded hover:bg-opacity-90">Create Exercise</button>
         </form>
     </div>
 
@@ -19,21 +28,19 @@
         <h3 class="text-2xl font-semibold mb-4" style="color: #071013;">Create Set</h3>
         <form method="POST" class="space-y-4" action="/tracker/createWorkout/" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ set_form }}
-            <button type="submit" name="set_submit" class="bg-23B5D3 text-white font-semibold py-2 px-4 rounded hover:bg-opacity-90" style="background-color: #23B5D3;">Create Set</button>
+            {{ set_form|crispy }}
+            <button type="submit" name="set_submit" class="bg-[#6C63FF] text-white font-semibold py-2 px-4 rounded hover:bg-opacity-90">Create Set</button>
         </form>
     </div>
 
-    <div class="bg-white p-6 rounded shadow-md mt-8">
-        <h3 class="text-2xl font-semibold mb-4" style="color: #071013;">Create Training</h3>
-        <form method="POST" class="space-y-4" action="/tracker/createWorkout/" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ training_form }}
-            <button type="submit" name="training_submit" class="bg-23B5D3 text-white font-semibold py-2 px-4 rounded hover:bg-opacity-90" style="background-color: #23B5D3;">Create Training</button>
-        </form>
-    </div>
+    
 </div>
 {% else %}
-<h1 class="mt-[120px]">PLEASE LOG IN </h1>
+<div class="flex flex-col items-center mt-[120px]">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Get Started</h2>
+    <a href="/authuser/signup" class="mb-4 px-6 py-3 bg-[#6C63FF] text-white rounded font-semibold">Sign Up</a>
+    <a href="/authuser/login" class="px-6 py-3 bg-gray-300 text-gray-800 rounded font-semibold">Log In</a>
+
+</div>
 {% endif %}
 {% endblock %}

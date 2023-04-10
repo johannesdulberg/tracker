@@ -1,7 +1,10 @@
+from django.db.models.functions import Coalesce
+from django.db.models import Sum, Max
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from . import forms
 from .models import Excercise, Set, Training
+import json
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 User = settings.AUTH_USER_MODEL
@@ -116,3 +119,82 @@ def createWorkout(request):
         })
     else:
         return render(request, 'tracker/createWorkout.html')
+
+
+def index(request):
+
+    return render(request, "home/home.html")
+
+
+def chart_data(request):
+    if request.user.is_authenticated:
+        exercise_id = request.GET.get('exercise_id', None)
+
+        if exercise_id:
+            # print(exercise_id)
+            exercise = Excercise.objects.get(id=exercise_id)
+            sets = Set.objects.filter(
+                Excercise=exercise).filter(
+                Training__userTraining=request.user).order_by('Training__Date')
+
+        else:
+            sets = Set.objects.all().order_by('Training__Date')
+
+        labels = [s.Training.Date for s in sets]
+        data = [(s.Reps, s.Weight) for s in sets]
+
+        print("labels", labels, "data", data)
+
+        exercises = Excercise.objects.filter(author=request.user)
+        trainDic = {}
+        for i in range(len(labels)):
+            if labels[i] in trainDic:
+                trainDic[labels[i]] += data[i][0]*data[i][1]
+            else:
+                trainDic[labels[i]] = data[i][0]*data[i][1]
+        volumeLable = list(trainDic.keys())
+        print("volumeLable", volumeLable)
+        volumedata = list(trainDic.values())
+
+        maxSetDic = {}
+        for i in range(len(labels)):
+            if labels[i] in maxSetDic:
+                maxSetDic[labels[i]] = max(
+                    data[i][1], maxSetDic[labels[i]])
+
+            else:
+                maxSetDic[labels[i]] = data[i][1]
+
+        maxSetLable = list(maxSetDic.keys())
+        maxSetData = list(maxSetDic.values())
+
+        oneRepMaxDic = {}
+        oneRepMaxDicMax = {}
+        for i in range(len(labels)):
+            if labels[i] in oneRepMaxDic:
+                if data[1][1] > oneRepMaxDic[labels[i]][1]:
+                    oneRepMaxDic[labels[i]] = data[i]
+                    oneRepMaxDicMax[labels[i]] = data[i][1] * \
+                        (36/(37-data[i][0]))
+            else:
+                oneRepMaxDic[labels[i]] = data[i]
+                oneRepMaxDicMax[labels[i]] = data[i][1]*(36/(37-data[i][0]))
+
+        oneRepMaxLable = list(oneRepMaxDicMax.keys())
+        oneRepMaxData = list(oneRepMaxDicMax.values())
+        for i in maxSetDic:
+            maxSetDic
+        chart_data = {
+            'volumeLable': json.dumps([label.strftime("%Y-%m-%d") for label in volumeLable]),
+            'volumeData': json.dumps(volumedata),
+            'maxSetLable': json.dumps([label.strftime("%Y-%m-%d") for label in maxSetLable]),
+            'maxSetData': json.dumps(maxSetData),
+            'oneRepMaxLable': json.dumps([label.strftime("%Y-%m-%d") for label in oneRepMaxLable]),
+            'oneRepMaxData': json.dumps(oneRepMaxData),
+            'exercises': exercises,
+            'selected_exercise': exercise if exercise_id else None
+        }
+
+        return render(request, 'tracker/chart.html', chart_data)
+    else:
+        return render(request, 'tracker/chart.html')

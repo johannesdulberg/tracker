@@ -22,7 +22,7 @@ class CreateSet(forms.ModelForm):
 
     class Meta:
         model = models.Set
-        fields = ["Excercise", "Weight", "Reps", "Training"]
+        fields = ["Training", "Excercise", "Weight", "Reps"]
 
 
 class CreateExercise(forms.ModelForm):
