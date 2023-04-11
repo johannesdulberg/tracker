@@ -24,7 +24,7 @@
 -->
 <div class="flex flex-col items-center justify-center min-h-screen">
     <h1 class="text-3xl font-bold mb-6 text-#2B2C28">Signup</h1>
-    <form class="site-form w-full max-w-md mt-8" action="/authuser/signup/" method="post">
+    <form class="site-form w-full max-w-md mt-8 p-4" action="/authuser/signup/" method="post">
         {% csrf_token %}
         {{ form|crispy }}
         <input type="submit" value="Signup" class="mt-4 px-4 py-2 bg-[#6C63FF] text-white rounded">
