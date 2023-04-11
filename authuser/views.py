@@ -14,8 +14,7 @@ def signup_view(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            #  log the user in
-            print("POST SAVED")
+            return redirect('authuser:login')
 
     else:
         print("GET")
@@ -31,6 +30,7 @@ def login_view(request):
             # return redirect('articles:list')
             user = form.get_user()
             login(request, user)
+            return redirect('tracker:createWorkout')
     else:
         form = AuthenticationForm()
     return render(request, 'authuser/login.html', {'form': form})
