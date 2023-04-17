@@ -2,11 +2,14 @@
 {% block content %}
 
 
-<h1 class="mt-[120px]">Log out</h1>
-<form class="site-form" action="/authuser/logout/" method="post">
-{% csrf_token %}
-<input type="submit" value="Logout" />
-</form>
+<div class="flex flex-col items-center justify-center min-h-screen">
+    <h1 class=" text-4xl primary-text">Log Out</h1>
+    <form class="site-form" action="/authuser/logout/" method="post">
+        {% csrf_token %}
+        <input  class="mt-4 px-4 py-2 bg-[#6C63FF] text-white rounded" type="submit" value="Logout" />
+    </form>
+  </div>
+
 
 
 <!-- 

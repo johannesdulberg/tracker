@@ -43,9 +43,11 @@ INSTALLED_APPS = [
     "tracker",
     'tailwind',
     'theme',
+    "moves",
     'django_browser_reload',
     "crispy_forms",
     "crispy_tailwind",
+    'django_filters',
 
 ]
 

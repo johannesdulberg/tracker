@@ -30,7 +30,7 @@ def login_view(request):
             # return redirect('articles:list')
             user = form.get_user()
             login(request, user)
-            return redirect('tracker:createWorkout')
+            return redirect('moves:exercise_list')
     else:
         form = AuthenticationForm()
     return render(request, 'authuser/login.html', {'form': form})
