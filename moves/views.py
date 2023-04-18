@@ -17,21 +17,6 @@ def exercise_list(request):
 
 
 def createExercise(request):
-    print(User)
-    if request.method == 'POST':
-        form = forms.CreateExercise(request.POST, request.FILES)
-        if form.is_valid():
-            # save article to db
-            instance = form.save(commit=False)
-            instance.author = request.user
-            instance.save()
-            return redirect('moves:createExercise')
-    else:
-        form = forms.CreateExercise()
-    return render(request, "moves/createExercise.html", {'form': form})
-
-
-def createExercise(request):
     if request.user.is_authenticated:
 
         if request.method == 'POST':

@@ -8,7 +8,7 @@
 
     <div class="bg-white p-6 rounded shadow-md">
         <h3 class="text-2xl font-semibold mb-4" style="color: #071013;">Add an Acro move to the database</h3>
-        <form method="POST" action="/tracker/createWorkout/" enctype="multipart/form-data">
+        <form method="POST" action="/moves/create/" enctype="multipart/form-data">
             {% csrf_token %}
             {{ exercise_form|crispy }}
             <button type="submit" name="exercise_submit" class="bg-[#6C63FF] text-white font-semibold py-2 px-4 rounded hover:bg-opacity-90">Create Exercise</button>
