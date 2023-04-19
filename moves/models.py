@@ -14,8 +14,8 @@ class Exercise(models.Model):
     IMPORTANCE_CHOICES = (
         ('important', 'Important'),
         ('variation', 'Variation'),
-        ('interesting', 'Interesting'),
-        ('whanky', "whanky")
+        ('not_essetial', 'Not Essential'),
+        ('just_for_fun', "Just For Fun")
     )
 
     name = models.CharField(max_length=255)

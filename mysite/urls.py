@@ -20,6 +20,7 @@ app_name = "home"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('impressum/', views.impressum, name='impressum'),
     path('tracker/', include('tracker.urls')),
     path('moves/', include('moves.urls')),
     path('authuser/', include('authuser.urls')),

@@ -23,27 +23,27 @@ class ExerciseFilter(django_filters.FilterSet):
     dance = ThreeOptionChoiceFilter(choices=(
         ('not_shown', 'No Dancemoves'),
         ('shown', 'Also Dancemoves'),
-        ('only', 'Just Dancemoves'),
+        ('only', 'Only Dancemoves'),
     ))
     washing_machines = ThreeOptionChoiceFilter(choices=(
         ('not_shown', 'No Washing Machines'),
         ('shown', 'Also Washing Machines'),
-        ('only', 'Just Washing Machines'),
+        ('only', 'Only Washing Machines'),
     ))
     flows = ThreeOptionChoiceFilter(choices=(
         ('not_shown', 'No Flows'),
         ('shown', 'Also Flows'),
-        ('only', 'Just Flows'),
+        ('only', 'Only Flows'),
     ))
     whips = ThreeOptionChoiceFilter(choices=(
         ('not_shown', 'No Whips'),
         ('shown', 'Also Whips'),
-        ('only', 'Just Whips'),
+        ('only', 'Only Whips'),
     ))
     pops = ThreeOptionChoiceFilter(choices=(
         ('not_shown', 'No Pops'),
         ('shown', 'Also Pops'),
-        ('only', 'Just Pops'),
+        ('only', 'Only Pops'),
     ))
 
     class Meta:
