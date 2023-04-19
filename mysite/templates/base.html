@@ -32,6 +32,10 @@
       <nav class='w-screen h-[80px] z-20 fixed drop-shadow-lg top-0 fadeIn  text-black bg-white'  id="myScrollspy" >
         <div class='px-2 flex w-full h-full justify-between'>
           <div class='flex items-center flex-row'>
+                <a class='text-3xl font-bold mr-4 sm:text-4xl h-[80px] w-[80px]' href="/">
+                    <img id="logowhite" {% if self.transparent %} class=""  {% else %} class="hidden"  {% endif %} src="../../static/assets/Logo_weiß.png" alt="">
+                    <img id="logoschwarz" {% if self.transparent %} class="hidden" {% else %}   {% endif %}  src="../../static/assets/Logo_schwarz.png" alt="">
+                </a>
                 <a class='text-3xl font-extrabold mr-4 sm:text-4xl pt-2 hidden sm:inline-block' href="/">ACROCON</a>
           </div>
           <div class='flex items-center'>
