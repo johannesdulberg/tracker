@@ -51,15 +51,15 @@
     </form>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    {% for exercise in filter.qs %}
+    {% for exercise in exercises_page %}
         <div class="bg-white shadow-md rounded p-6">
             
             <a class="text-xl font-semibold mb-4" href="{% url 'moves:exercise_detail' exercise.id %}">{{ exercise.name }}</a>
             <p class="mb-4">{{ exercise.difficulty }}</p>
             {% if exercise.video_url %}
-                <div class="video-container h_iframe">
+		<div class="video-container h_iframe">
                     <iframe src="https://www.youtube.com/embed/{{ exercise.video_url|get_youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
+                </div>                
             {% endif %}
         </div>
     {% endfor %}
