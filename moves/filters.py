@@ -16,8 +16,8 @@ class ThreeOptionChoiceFilter(django_filters.ChoiceFilter):
 class ExerciseFilter(django_filters.FilterSet):
     difficulty = django_filters.ChoiceFilter(
         choices=Exercise.DIFFICULTY_CHOICES)
-    importance = django_filters.ChoiceFilter(
-        choices=Exercise.IMPORTANCE_CHOICES)
+    type = django_filters.ChoiceFilter(
+        choices=Exercise.TYPE_CHOICES)
     base = django_filters.ChoiceFilter(
         choices=Exercise.BASE_CHOICES)
     dance = ThreeOptionChoiceFilter(choices=(
@@ -45,8 +45,18 @@ class ExerciseFilter(django_filters.FilterSet):
         ('shown', 'Also Pops'),
         ('only', 'Only Pops'),
     ))
+    counterbalance = ThreeOptionChoiceFilter(choices=(
+        ('not_shown', 'No Counterbalance'),
+        ('shown', 'Also Counterbalance'),
+        ('only', 'Only Counterbalance'),
+    ))
+    position = ThreeOptionChoiceFilter(choices=(
+        ('not_shown', 'No Positions'),
+        ('shown', 'Also Positions'),
+        ('only', 'Only Positions'),
+    ))
 
     class Meta:
         model = Exercise
-        fields = ['difficulty', 'importance', "base", "dance",
-                  "flows", "washing_machines", "whips", "pops"]
+        fields = ['difficulty', 'type', "base", "dance",
+                  "flows", "washing_machines", "whips", "pops", "counterbalance", "position", "variation",   "entrance_to", "exit_from",  "transition_from", "transition_to"]

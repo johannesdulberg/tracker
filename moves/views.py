@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Exercise
 from .filters import ExerciseFilter
 from django.shortcuts import render, redirect
@@ -38,3 +38,8 @@ def createExercise(request):
         })
     else:
         return render(request, "moves/createExercise.html")
+
+
+def exercise_detail(request, exercise_id):
+    exercise = get_object_or_404(Exercise, id=exercise_id)
+    return render(request, 'moves/exercise_detail.html', {'exercise': exercise})

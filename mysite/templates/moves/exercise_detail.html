@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load youtube_filters %}
+{% block content %}
+<div class="container mx-auto mt-[120px]">
+    <h2 class="text-4xl font-bold mb-8" style="color: #6C63FF;">{{ exercise.name }}</h2>
+
+    <p>Difficulty: {{ exercise.difficulty }}</p>
+    <p>Base: {{ exercise.base }}</p>
+    <p>Type: {{ exercise.type }}</p>
+    <!-- Add other exercise fields you want to display here -->
+
+    {% if exercise.video_url %}
+        <div class="video-container h_iframe">
+            <iframe src="https://www.youtube.com/embed/{{ exercise.video_url|get_youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
