@@ -115,95 +115,7 @@
       
       
       <script>
-        window.addEventListener('DOMContentLoaded', event => {
-        
-        // Navbar shrink function
-        var navbarShrink = function () {
-            const navbarCollapsible = document.body.querySelector('.trans');
-            const burgerMenu = document.body.querySelector('#burgerMenu');
-            
-            if (!navbarCollapsible) {
-                return;
-            }
-            if (window.scrollY === 0) {
-                navbarCollapsible.classList.add('text-white')
-                navbarCollapsible.classList.remove('bg-white')
-                burgerMenu.classList.add('fill-white')
-                burgerMenu.classList.remove('fill-black')
-                document.getElementById("dropdownMenu").classList.add("opacity-0");
-                document.getElementById("dropdownMenu").classList.remove("opacity-100");
-        
-                
-                
-        
-        
-            } else {
-                navbarCollapsible.classList.remove('text-white')
-                navbarCollapsible.classList.add('bg-white')
-                burgerMenu.classList.add('fill-black')
-                burgerMenu.classList.remove('fill-white')
-            }
-        
-        };
-        
-        
-        
-        
-        // Shrink the navbar when page is scrolled
-        document.addEventListener('scroll', navbarShrink);
-        
-        
-        //SCROLLSPY
-        const c1 = document.querySelector(".vita")
-        const c2 = document.querySelector(".projekte")
-        const c3 = document.querySelector(".ablauf")
-        const items = document.querySelectorAll(".nbar")
-        const vita = document.getElementById("vita")
-        const projekteContainer = document.getElementById("projekte")
-        const ablauf = document.getElementById("ablauf")
-        
-        
-        const observer1 = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting == true){
-                items.forEach(element => {
-                    element.classList.remove("active");
-                });
-                c1.classList.add("active");
-                
-            }else{
-                c1.classList.remove("active");
-            }
-        },{ threshold: 0.3})
-        const observer2 = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting == true){
-                items.forEach(element => {
-                    element.classList.remove("active");
-                });
-                c2.classList.add("active");
-            }else{
-                c2.classList.remove("active");
-            }
-        },{ threshold: 0.3})
-        const observer3 = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting == true){
-                items.forEach(element => {
-                    element.classList.remove("active");
-                });
-                c3.classList.add("active");
-            }else{
-                c3.classList.remove("active");
-            }
-        },{ threshold: 0.3})
-        
-        try {observer1.observe(vita)} catch {}
-        try { observer2.observe(projekteContainer)} catch {}
-        try {observer3.observe(ablauf)} catch {}
-        
-        
-        
-        
-        
-        });
+       
         var closeNavbar = function () {
         const navbarCollapsible = document.getElementById("dropdownMenu");
             
@@ -220,18 +132,12 @@
         
         function dropDown() {
           console.log("WORKED")
-            setTimeout(() => {   
-                document.getElementById("dropdownMenu").classList.remove("hidden");
-                document.getElementById("dropdownMenu").classList.add("opacity-100");
-                document.getElementById("dropdownMenu").classList.remove("opacity-0");
-                document.getElementById("dropButton").disabled=true;
-                const navbarCollapsible = document.body.querySelector('#myScrollspy');
-                const burgerMenu = document.body.querySelector('#burgerMenu');
-                navbarCollapsible.classList.remove('text-white')
-                navbarCollapsible.classList.add('bg-white')
-                burgerMenu.classList.add('fill-black')
-                burgerMenu.classList.remove('fill-white')
-            }, 100);
+
+            document.getElementById("dropdownMenu").classList.remove("hidden");
+            document.getElementById("dropdownMenu").classList.add("opacity-100");
+            document.getElementById("dropdownMenu").classList.remove("opacity-0");
+            document.getElementById("dropButton").disabled=true;
+
         }
         
         </script>
