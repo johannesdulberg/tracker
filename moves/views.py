@@ -7,13 +7,27 @@ from .models import Exercise
 import json
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 User = settings.AUTH_USER_MODEL
 
 
 def exercise_list(request):
+    # Instantiate the filter
     exercise_filter = ExerciseFilter(
-        request.GET, queryset=Exercise.objects.filter(legit=True))
-    return render(request, 'moves/exercise_list.html', {'filter': exercise_filter})
+        request.GET, queryset=Exercise.objects.all())
+
+    # Configure the paginator
+    exercises_per_page = 10
+    paginator = Paginator(exercise_filter.qs, exercises_per_page)
+    page = request.GET.get('page')
+    exercises_page = paginator.get_page(page)
+
+    context = {
+        'filter': exercise_filter,
+        'exercises_page': exercises_page,
+    }
+
+    return render(request, 'moves/exercise_list.html', context)
 
 
 def createExercise(request):

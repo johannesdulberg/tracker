@@ -64,6 +64,13 @@
         </div>
     {% endfor %}
 </div>
+{% if exercises_page.has_next %}
+    <div class="mt-6 text-center">
+        <a href="?page={{ exercises_page.next_page_number }}{% if request.GET.urlencode|slice:'5:' %}&{{ request.GET.urlencode|slice:'5:' }}{% endif %}" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Load More
+        </a>
+    </div>
+{% endif %}
 </div>
     <script>
         document.getElementById("advanced-settings-button").addEventListener("click", function() {
