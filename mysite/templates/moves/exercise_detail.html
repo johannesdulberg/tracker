@@ -1,18 +1,125 @@
 {% extends "base.html" %}
 {% load youtube_filters %}
 {% block content %}
-<div class="container mx-auto mt-[120px]">
-    <h2 class="text-4xl font-bold mb-8" style="color: #6C63FF;">{{ exercise.name }}</h2>
+<style>
+    iframe {
+        top:0;
+        left:0;
+        width:70%;
+        height:100%;
+    }
+</style>
+<div class="container mx-auto mt-[120px] min-h-screen ">
+    <div class="text-center ">
+        <h2 class="text-4xl font-bold mb-8" style="color: #6C63FF;">{{ exercise.name }}</h2>
+        <p>Difficulty: {{ exercise.difficulty }}</p>
+        <p>Base: {{ exercise.base }}</p>
+        <p>Type: {{ exercise.type }}</p>
+        <!-- Add other exercise fields you want to display here -->
 
-    <p>Difficulty: {{ exercise.difficulty }}</p>
-    <p>Base: {{ exercise.base }}</p>
-    <p>Type: {{ exercise.type }}</p>
-    <!-- Add other exercise fields you want to display here -->
-
-    {% if exercise.video_url %}
-        <div class="video-container h_iframe">
-            <iframe src="https://www.youtube.com/embed/{{ exercise.video_url|get_youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        {% if exercise.video_url %}
+            <div class="video-container h_iframe mb-8 flex items-center justify-center">
+                <iframe src="https://www.youtube.com/embed/{{ exercise.video_url|get_youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        {% endif %}
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>
+            <h2 class="text-2xl font-bold mb-4" style="color: #6C63FF;">Variations</h2>
+            <ul>
+                {% for variation in variations %}
+                    <li class="mb-4">
+                        <h3 class="text-xl font-bold mb-2" style="color: #6C63FF;">{{ variation.name }}</h3>
+                        <p>Difficulty: {{ variation.difficulty }}</p>
+                        {% if variation.video_url %}
+                            <div class="video-container h_iframe">
+                                <iframe src="https://www.youtube.com/embed/{{ variation.video_url|get_youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        {% endif %}
+                    </li>
+                {% empty %}
+                    <li>No variations found.</li>
+                {% endfor %}
+            </ul>
         </div>
-    {% endif %}
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>
+            <h2 class="text-2xl font-bold mb-4" style="color: #6C63FF;">Entrances</h2>
+            <ul>
+                {% for variation in entrances %}
+                    <li class="mb-4">
+                        <h3 class="text-xl font-bold mb-2" style="color: #6C63FF;">{{ variation.name }}</h3>
+                        <p>Difficulty: {{ variation.difficulty }}</p>
+                        {% if variation.video_url %}
+                            <div class="video-container h_iframe">
+                                <iframe src="https://www.youtube.com/embed/{{ variation.video_url|get_youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        {% endif %}
+                    </li>
+                {% empty %}
+                    <li>No entrances found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h2 class="text-2xl font-bold mb-4" style="color: #6C63FF;">Exits</h2>
+            <ul>
+                {% for variation in exits %}
+                    <li class="mb-4">
+                        <h3 class="text-xl font-bold mb-2" style="color: #6C63FF;">{{ variation.name }}</h3>
+                        <p>Difficulty: {{ variation.difficulty }}</p>
+                        {% if variation.video_url %}
+                            <div class="video-container h_iframe">
+                                <iframe src="https://www.youtube.com/embed/{{ variation.video_url|get_youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        {% endif %}
+                    </li>
+                {% empty %}
+                    <li>No exits found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h2 class="text-2xl font-bold mb-4" style="color: #6C63FF;">Transition From {{exercise.name}}</h2>
+            <ul>
+                {% for variation in transition_from %}
+                    <li class="mb-4">
+                        <h3 class="text-xl font-bold mb-2" style="color: #6C63FF;">{{ variation.name }}</h3>
+                        <p>Difficulty: {{ variation.difficulty }}</p>
+                        {% if variation.video_url %}
+                            <div class="video-container h_iframe">
+                                <iframe src="https://www.youtube.com/embed/{{ variation.video_url|get_youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        {% endif %}
+                    </li>
+                {% empty %}
+                    <li>No transition found starting from {{ exercise.name }}.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h2 class="text-2xl font-bold mb-4" style="color: #6C63FF;">Transitions To {{exercise.name}}</h2>
+            <ul>
+                {% for variation in transition_to %}
+                    <li class="mb-4">
+                        <h3 class="text-xl font-bold mb-2" style="color: #6C63FF;">{{ variation.name }}</h3>
+                        <p>Difficulty: {{ variation.difficulty }}</p>
+                        {% if variation.video_url %}
+                            <div class="video-container h_iframe">
+                                <iframe src="https://www.youtube.com/embed/{{ variation.video_url|get_youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        {% endif %}
+                    </li>
+                {% empty %}
+                    <li>No variations found going into {{ exercise.name }}.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Entrances, Exits, Transitions starting, and Transitions coming sections go here -->
+    </div>
+    
+    
 </div>
 {% endblock %}

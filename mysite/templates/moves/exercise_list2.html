@@ -12,8 +12,8 @@
         height:100%;
     }
 </style>
-<div class=" min-h-screen">
-<div class="container mx-auto mt-[120px]">
+
+<div class="container mx-auto mt-[120px] min-h-screen">
     <h2 class="text-4xl font-bold mb-8" style="color: #6C63FF;">MOVES</h2>
     <form action="" method="get" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
         <div class="mb-4 form-cont">
@@ -50,21 +50,7 @@
         </button>
     </form>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    {% for exercise in filter.qs %}
-        <div class="bg-white shadow-md rounded p-6">
-            
-            <a class="text-xl font-semibold mb-4" href="{% url 'moves:exercise_detail' exercise.id %}">{{ exercise.name }}</a>
-            <p class="mb-4">{{ exercise.difficulty }}</p>
-            {% if exercise.video_url %}
-                <div class="video-container h_iframe">
-                    <iframe src="https://www.youtube.com/embed/{{ exercise.video_url|get_youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            {% endif %}
-        </div>
-    {% endfor %}
-</div>
-</div>
+
     <script>
         document.getElementById("advanced-settings-button").addEventListener("click", function() {
             var advancedSettings = document.getElementById("advanced-settings");

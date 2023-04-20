@@ -42,4 +42,20 @@ def createExercise(request):
 
 def exercise_detail(request, exercise_id):
     exercise = get_object_or_404(Exercise, id=exercise_id)
-    return render(request, 'moves/exercise_detail.html', {'exercise': exercise})
+
+    variations = Exercise.objects.filter(variation=exercise)
+    entrances = Exercise.objects.filter(entrance_to=exercise)
+    exits = Exercise.objects.filter(exit_from=exercise)
+    transitions_from = Exercise.objects.filter(transition_from=exercise)
+    transitions_to = Exercise.objects.filter(transition_to=exercise)
+
+    context = {
+        'exercise': exercise,
+        'variations': variations,
+        'entrances': entrances,
+        'exits': exits,
+        'transitions_from': transitions_from,
+        'transitions_to': transitions_to,
+    }
+
+    return render(request, 'moves/exercise_detail.html', context)
