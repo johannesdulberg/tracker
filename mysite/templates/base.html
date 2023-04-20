@@ -32,10 +32,6 @@
       <nav class='w-screen h-[80px] z-20 fixed drop-shadow-lg top-0 fadeIn  text-black bg-white'  id="myScrollspy" >
         <div class='px-2 flex w-full h-full justify-between'>
           <div class='flex items-center flex-row'>
-                <a class='text-3xl font-bold mr-4 sm:text-4xl h-[80px] w-[80px]' href="/">
-                    <img id="logowhite" {% if self.transparent %} class=""  {% else %} class="hidden"  {% endif %} src="../../static/assets/Logo_weiß.png" alt="">
-                    <img id="logoschwarz" {% if self.transparent %} class="hidden" {% else %}   {% endif %}  src="../../static/assets/Logo_schwarz.png" alt="">
-                </a>
                 <a class='text-3xl font-extrabold mr-4 sm:text-4xl pt-2 hidden sm:inline-block' href="/">ACROCON</a>
           </div>
           <div class='flex items-center'>
@@ -107,8 +103,8 @@
             {% block content %}
              {% endblock %}
 
-             <hr class="mt-5 mx-3">
-             <footer style="box-shadow: 5px 5px 10px 5px #CCC; margin-top: 100px;" class='w-screen h-[80px] text-black bg-gray-100 flex items-center p-4'  >
+             
+             <footer style="box-shadow: 5px 5px 10px 5px #CCC; margin-top: 100px; bottom: 0;" class='w-screen h-[80px] text-black bg-gray-100 flex items-center p-4 '  >
               <a class="px-8 ml-4 py-3 solidButton button-primary" href="/impressum">
                   Impressum
                 </a>
@@ -131,8 +127,6 @@
             }
             if (window.scrollY === 0) {
                 navbarCollapsible.classList.add('text-white')
-                document.getElementById("logoschwarz").classList.add("hidden");
-                document.getElementById("logowhite").classList.remove("hidden");
                 navbarCollapsible.classList.remove('bg-white')
                 burgerMenu.classList.add('fill-white')
                 burgerMenu.classList.remove('fill-black')
@@ -144,8 +138,6 @@
         
         
             } else {
-                document.getElementById("logowhite").classList.add("hidden");
-                document.getElementById("logoschwarz").classList.remove("hidden");
                 navbarCollapsible.classList.remove('text-white')
                 navbarCollapsible.classList.add('bg-white')
                 burgerMenu.classList.add('fill-black')
@@ -217,8 +209,6 @@
             
             if (!navbarCollapsible.classList.contains("hidden")){
                 //document.getElementById("dropdownMenu").classList.add("hidden");
-                document.getElementById("logowhite").classList.add("hidden");
-                document.getElementById("logoschwarz").classList.remove("hidden");
                 document.getElementById("dropdownMenu").classList.add("opacity-0");
                 document.getElementById("dropdownMenu").classList.add("hidden");
                 document.getElementById("dropdownMenu").classList.remove("opacity-100");
@@ -231,8 +221,6 @@
         function dropDown() {
           console.log("WORKED")
             setTimeout(() => {   
-                document.getElementById("logowhite").classList.add("hidden");
-                document.getElementById("logoschwarz").classList.remove("hidden");
                 document.getElementById("dropdownMenu").classList.remove("hidden");
                 document.getElementById("dropdownMenu").classList.add("opacity-100");
                 document.getElementById("dropdownMenu").classList.remove("opacity-0");
