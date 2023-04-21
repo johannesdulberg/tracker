@@ -65,7 +65,7 @@
             <!-- <div class='hidden md:flex pr-4'>
             <a class='px-8 ml-4 py-3 solidButton' href="/authuser/signup">PROFILE</a>
             </div> -->
-            <button class="md:hidden mr-4" onclick="dropDown()" id="dropButton"> 
+            <button class="md:hidden mr-4" id="dropButton"> 
                 <svg class="{% if self.transparent %} fill-white {% else %} fill-black {% endif %}" id="burgerMenu" viewBox="0 0 100 80" width="32" height="32">
                     <rect width="100" height="15"></rect>
                     <rect y="30" width="100" height="15"></rect>
@@ -74,7 +74,7 @@
             </button>
           </div>
         </div>
-        <ul style="list-style: none" class="absolute bg-white text-black w-full px-8 text-center opacity-0 md:hidden" id="dropdownMenu">
+        <ul style="list-style: none" class="absolute bg-white text-black w-full px-8 text-center md:hidden" id="dropdownMenu">
             <li ><a class="m-4 nbar projekte" href="/moves/exercises" >MOVES</a></li>
             <li ><a class="p-4 nbar projekte" href="/moves/create" >ADD MOVE</a></li>
             <li ><a class="m-4 nbar projekte" href="/tracker/createWorkout" >FITNESSTRACKER</a></li>
@@ -116,30 +116,11 @@
       
       <script>
        
-        var closeNavbar = function () {
-        const navbarCollapsible = document.getElementById("dropdownMenu");
-            
-            if (!navbarCollapsible.classList.contains("hidden")){
-                //document.getElementById("dropdownMenu").classList.add("hidden");
-                document.getElementById("dropdownMenu").classList.add("opacity-0");
-                document.getElementById("dropdownMenu").classList.add("hidden");
-                document.getElementById("dropdownMenu").classList.remove("opacity-100");
-                document.getElementById("dropButton").disabled=false;
-            }
-        
-        }
-        document.addEventListener('click', closeNavbar);
-        
-        function dropDown() {
-          console.log("WORKED")
-
-            document.getElementById("dropdownMenu").classList.remove("hidden");
-            document.getElementById("dropdownMenu").classList.add("opacity-100");
-            document.getElementById("dropdownMenu").classList.remove("opacity-0");
-            document.getElementById("dropButton").disabled=true;
-
-        }
-        
+    
+        document.getElementById("dropButton").addEventListener("click", function() {
+            var advancedSettings = document.getElementById("dropdownMenu");
+            advancedSettings.classList.toggle("hidden");
+        });
         </script>
 
         
