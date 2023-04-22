@@ -13,7 +13,45 @@ class ThreeOptionChoiceFilter(django_filters.ChoiceFilter):
         return qs
 
 
+class UserRelatedFilter(django_filters.ChoiceFilter):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        print("USER IS", self.user)
+
+    def filter(self, qs, value):
+        if self.user is None:
+            return qs
+        if value == 'not_shown':
+            return qs.exclude(**{self.field_name: self.user})
+        elif value == 'shown':
+            return qs
+        elif value == 'only':
+            return qs.filter(**{self.field_name: self.user})
+        return qs
+
+
 class ExerciseFilter(django_filters.FilterSet):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        self.filters['favorite'] = UserRelatedFilter(choices=(
+            ('not_shown', 'Not in Favorites'),
+            ('shown', 'All Exercises'),
+            ('only', 'Only in Favorites'),
+        ), field_name='favorited', user=user)
+
+        self.filters['learned'] = UserRelatedFilter(choices=(
+            ('not_shown', 'Not Learned'),
+            ('shown', 'All Exercises'),
+            ('only', 'Only Learned'),
+        ), field_name='learned', user=user)
+
+        self.filters['want_to_learn'] = UserRelatedFilter(choices=(
+            ('not_shown', 'Not Display Want To Learn'),
+            ('shown', 'All Exercises'),
+            ('only', 'Only Want to Learn'),
+        ), field_name='want_to_learn', user=user)
     difficulty = django_filters.ChoiceFilter(
         choices=Exercise.DIFFICULTY_CHOICES)
     type = django_filters.ChoiceFilter(
@@ -56,7 +94,25 @@ class ExerciseFilter(django_filters.FilterSet):
         ('only', 'Only Positions'),
     ))
 
+    favorite = UserRelatedFilter(choices=(
+        ('not_shown', 'Not in Favorites'),
+        ('shown', 'All Exercises'),
+        ('only', 'Only in Favorites'),
+    ), field_name='favorited')
+
+    learned = UserRelatedFilter(choices=(
+        ('not_shown', 'Not Learned'),
+        ('shown', 'All Exercises'),
+        ('only', 'Only Learned'),
+    ), field_name='learned')
+
+    want_to_learn = UserRelatedFilter(choices=(
+        ('not_shown', 'Not Display Want To Learn'),
+        ('shown', 'All Exercises'),
+        ('only', 'Only Want to Learn'),
+    ), field_name='want_to_learn')
+
     class Meta:
         model = Exercise
         fields = ['difficulty', 'type', "base", "dance",
-                  "flows", "washing_machines", "whips", "pops", "counterbalance", "position", "variation",   "entrance_to", "exit_from",  "transition_from", "transition_to"]
+                  "flows", "washing_machines", "whips", "pops", "counterbalance", "position", "variation",   "entrance_to", "exit_from",  "transition_from", "transition_to", 'favorite', 'learned', 'want_to_learn']

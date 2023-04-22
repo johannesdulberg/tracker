@@ -8,20 +8,22 @@ import json
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from .forms import FavoriteForm
 User = settings.AUTH_USER_MODEL
 
 
 def exercise_list(request):
     # Instantiate the filter
     exercise_filter = ExerciseFilter(
-        request.GET, queryset=Exercise.objects.all())
+        request.GET, queryset=Exercise.objects.all(), user=request.user)
 
     # Configure the paginator
     exercises_per_page = 10
     paginator = Paginator(exercise_filter.qs, exercises_per_page)
     page = request.GET.get('page')
     exercises_page = paginator.get_page(page)
-
+    print("LEARNED", request.user.learned.all())
+    print("WANT TO LEARN", request.user.learned.all())
     context = {
         'filter': exercise_filter,
         'exercises_page': exercises_page,
@@ -73,3 +75,27 @@ def exercise_detail(request, exercise_id):
     }
 
     return render(request, 'moves/exercise_detail.html', context)
+
+
+@login_required
+def add_favorite(request, exercise_id):
+    user = request.user
+    exercise = get_object_or_404(Exercise, id=exercise_id)
+    user.favorites.add(exercise)
+    return redirect(request.META.get('HTTP_REFERER', 'exercise_list'))
+
+
+@login_required
+def add_learned(request, exercise_id):
+    user = request.user
+    exercise = get_object_or_404(Exercise, id=exercise_id)
+    user.learned.add(exercise)
+    return redirect(request.META.get('HTTP_REFERER', 'exercise_list'))
+
+
+@login_required
+def add_want_to_learn(request, exercise_id):
+    user = request.user
+    exercise = get_object_or_404(Exercise, id=exercise_id)
+    user.want_to_learn.add(exercise)
+    return redirect(request.META.get('HTTP_REFERER', 'exercise_list'))

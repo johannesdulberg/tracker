@@ -4,6 +4,7 @@
 {% load crispy_forms_tags %}
 {% load tailwind_filters %}
 {% block content %}
+
 <style>
     iframe {
         top:0;
@@ -38,6 +39,9 @@
                 Advanced Filters
             </button>
             <div id="advanced-settings" class="hidden mt-4">
+                {{ filter.form.favorite|as_crispy_field }}
+                {{ filter.form.learned|as_crispy_field }}
+                {{ filter.form.want_to_learn|as_crispy_field }}
                 {{ filter.form.variation|as_crispy_field }}
                 {{ filter.form.entrance_to|as_crispy_field }}
                 {{ filter.form.exit_from|as_crispy_field }}
@@ -61,6 +65,32 @@
                     <iframe src="https://www.youtube.com/embed/{{ exercise.video_url|get_youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             {% endif %}
+            <div class="flex ">
+            <div class="m-2">
+            <form method="post" action="{% url 'moves:add_favorite' exercise.id %}">
+                {% csrf_token %}
+                <button type="submit" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
+                    Add to Favorites
+                </button>
+            </form>
+        </div>
+        <div class="m-2">
+            <form method="post" action="{% url 'moves:add_learned' exercise.id %}">
+                {% csrf_token %}
+                <button type="submit" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
+                    Already Learned
+                </button>
+            </form>
+        </div>
+        <div class="m-2">
+            <form method="post" action="{% url 'moves:add_want_to_learn' exercise.id %}">
+                {% csrf_token %}
+                <button type="submit" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
+                    Want To Learn
+                </button>
+            </form>
+        </div>
+            </div>
         </div>
     {% endfor %}
 </div>

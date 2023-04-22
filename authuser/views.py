@@ -42,3 +42,11 @@ def logout_view(request):
         logout(request)
         return redirect('index')
     return render(request, 'authuser/logout.html')
+
+
+@login_required
+def profile(request):
+    user = request.user
+    favorites = user.favorites.all()
+    context = {'favorites': favorites}
+    return render(request, 'authuser/profile.html', context)

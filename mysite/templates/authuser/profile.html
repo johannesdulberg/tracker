@@ -1,0 +1,14 @@
+{% extends "../base.html" %}
+{% load tailwind_filters %}
+{% block content %}
+<div class="flex flex-col items-center justify-center min-h-screen h-full">
+<h1>Your Favorite Exercises</h1>
+<ul>
+{% for exercise in favorites %}
+    <li>{{ exercise.name }}</li>
+{% empty %}
+    <li>No favorite exercises yet.</li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}
