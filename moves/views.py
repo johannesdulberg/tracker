@@ -14,16 +14,15 @@ User = settings.AUTH_USER_MODEL
 
 def exercise_list(request):
     # Instantiate the filter
+    user = request.user if request.user.is_authenticated else None
     exercise_filter = ExerciseFilter(
-        request.GET, queryset=Exercise.objects.all(), user=request.user)
+        request.GET, queryset=Exercise.objects.all(), user=user)
 
     # Configure the paginator
     exercises_per_page = 10
     paginator = Paginator(exercise_filter.qs, exercises_per_page)
     page = request.GET.get('page')
     exercises_page = paginator.get_page(page)
-    print("LEARNED", request.user.learned.all())
-    print("WANT TO LEARN", request.user.learned.all())
     context = {
         'filter': exercise_filter,
         'exercises_page': exercises_page,

@@ -20,6 +20,11 @@ class UserRelatedFilter(django_filters.ChoiceFilter):
         print("USER IS", self.user)
 
     def filter(self, qs, value):
+        if self.user is None or not self.user.is_authenticated:
+            if value == 'not_shown' or value == 'shown':
+                return qs
+            else:  # value == 'only'
+                return qs.none()
         if self.user is None:
             return qs
         if value == 'not_shown':
