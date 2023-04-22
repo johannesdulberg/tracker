@@ -67,38 +67,50 @@
             {% endif %}
             <div class="flex ">
             <div class="m-2">
-            <form method="post" action="{% url 'moves:add_favorite' exercise.id %}">
-                {% csrf_token %}
-                <button type="submit" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
-                    Add to Favorites
-                </button>
-            </form>
-        </div>
-        <div class="m-2">
-            <form method="post" action="{% url 'moves:add_learned' exercise.id %}">
-                {% csrf_token %}
-                <button type="submit" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
-                    Already Learned
-                </button>
-            </form>
-        </div>
-
-        
-        <div class="m-2">
-            {% if user.is_authenticated %}
-        <form method="post" action="{% url 'moves:add_want_to_learn' exercise.id %}">
-            {% csrf_token %}
-            <button type="submit" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
-                Want To Learn
-            </button>
-        </form>
-    {% else %}
-        <a href="/authuser/signup" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
-            Sign Up to Add to Want To Learn
-        </a>
-    {% endif %}
-        </div>
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'moves:add_favorite' exercise.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
+                        Add to Favorites
+                    </button>
+                </form>
+                {% else %}
+                    <button href="/authuser/signup" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
+                        Add to Favorites
+                    </button>
+                {% endif %}
             </div>
+            <div class="m-2">
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'moves:add_learned' exercise.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
+                        Already Learned
+                    </button>
+                </form>
+                {% else %}
+                    <button href="/authuser/signup" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
+                        Already Learned
+                    </button>
+                {% endif %}
+            </div>
+
+            
+            <div class="m-2">
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'moves:add_want_to_learn' exercise.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
+                            Want To Learn
+                        </button>
+                    </form>
+                {% else %}
+                    <button href="/authuser/signup" class="bg-[#6C63FF] hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-4">
+                        Want To Learn
+                    </button>
+                {% endif %}
+            </div>
+        </div>
         </div>
     {% endfor %}
 </div>
